@@ -1,0 +1,145 @@
+<style>
+.ms-promlink-headerNav {display:none}
+#pageContentTitle {display: none !important;}
+.ms-pub-contentLayout {
+     box-shadow: 3px 4px 5px #000;
+}
+#ContentArea div div {
+	margin-top: 20px;
+	font-size: 16px;
+}
+.w100 {
+	margin: 0 2%;
+	width: 96%;
+}
+.w66 {
+	box-shadow: 0px 2px 7px #888888;
+	/* IE10 Consumer Preview */ 
+	background-image: -ms-radial-gradient(center, ellipse closest-side, #FFFFFF 0%, #C9E2EF 100%);
+
+	/* Mozilla Firefox */ 
+	background-image: -moz-radial-gradient(center, ellipse closest-side, #FFFFFF 0%, #C9E2EF 100%);
+
+	/* Opera */ 
+	background-image: -o-radial-gradient(center, ellipse closest-side, #FFFFFF 0%, #C9E2EF 100%);
+
+	/* Webkit (Safari/Chrome 10) */ 
+	background-image: -webkit-gradient(radial, center center, 0, center center, 140, color-stop(0, #FFFFFF), color-stop(1, #C9E2EF));
+
+	/* Webkit (Chrome 11+) */ 
+	background-image: -webkit-radial-gradient(center, ellipse closest-side, #FFFFFF 0%, #C9E2EF 100%);
+
+	/* W3C Markup, IE10 Release Preview */ 
+	background-image: radial-gradient(ellipse closest-side at center, #FFFFFF 0%, #C9E2EF 100%);
+	padding: 1%;
+	margin-right: 0%;
+	width: 98%;
+	float: left;
+	border-radius: 10px;
+	min-height: 260px;
+}
+.w50 { 
+	margin: 0 1%;
+	width: 30%;
+	float: left;
+	}
+.w33 { 
+	box-shadow: 0px 2px 7px #888888;
+	/* IE10 Consumer Preview */ 
+	background-image: -ms-radial-gradient(center, ellipse closest-side, #FFFFFF 0%, #C9E2EF 100%);
+
+	/* Mozilla Firefox */ 
+	background-image: -moz-radial-gradient(center, ellipse closest-side, #FFFFFF 0%, #C9E2EF 100%);
+
+	/* Opera */ 
+	background-image: -o-radial-gradient(center, ellipse closest-side, #FFFFFF 0%, #C9E2EF 100%);
+
+	/* Webkit (Safari/Chrome 10) */ 
+	background-image: -webkit-gradient(radial, center center, 0, center center, 140, color-stop(0, #FFFFFF), color-stop(1, #C9E2EF));
+
+	/* Webkit (Chrome 11+) */ 
+	background-image: -webkit-radial-gradient(center, ellipse closest-side, #FFFFFF 0%, #C9E2EF 100%);
+
+	/* W3C Markup, IE10 Release Preview */ 
+	background-image: radial-gradient(ellipse closest-side at center, #FFFFFF 0%, #C9E2EF 100%);
+	padding: 1%;
+	width: 31.3333%;
+	float: left;
+	border-radius: 10px;
+}
+#ContentArea ul {
+	list-style: none;
+	margin:0;
+	padding:0;
+}
+#ContentArea li a {
+	color: #444444;
+	text-decoration:none;
+}
+#ContentArea li a:hover { 
+	color:#fff;
+	text-decoration:none;
+font-weight:bold;
+}
+#ContentArea li:nth-child(even) { background-color: #eee; }
+#ContentArea ul a {
+	display: block;
+	padding: 3px 5px;
+}
+#ContentArea ul a:hover {
+	background-color: #2B6893;
+	border-radius: 3px;
+	padding: 3px 5px;
+}
+.logo {
+	margin: 0 auto;
+	display:block;
+}
+</style>
+<script type="text/javascript" src="/SiteAssets/jquery-1.11.0.min.js"></script>
+	<div id="ContentArea"></div>
+	<script type="text/javascript">
+// Start function when DOM has completely loaded 
+$(document).ready(function(){ 
+
+	var myHTMLOutput = '';
+	function getList() {
+	var siteUrl = "http://abn-intranet2/",
+		listId  = "{16C4FB93-B4B8-4ACF-8D26-3997DA44691E}";
+
+	}
+		
+	var siteUrl = "http://abn-intranet2",
+    listId  = "{16C4FB93-B4B8-4ACF-8D26-3997DA44691E}";
+
+	$.get( siteUrl + "/_vti_bin/owssvr.dll?Cmd=Display&XMLDATA=TRUE&List=" + listId, 
+    	function( xml ) {
+			// Build an HTML string
+			var myHTMLOutput = '';
+			myHTMLOutput += '<div class="w66">';
+			myHTMLOutput += '<img src="/SiteAssets/logo-group.png" height="50" class="logo" /><div class="w50"><ul>';
+			
+			var zrow = xml.getElementsByTagName('z:row');
+        	var half = Math.ceil(zrow.length/3);
+			var col2 = Math.ceil(zrow.length-half);
+			for(var i=0; i<zrow.length; i++) {
+				if (i == half) {
+					myHTMLOutput += '</ul></div><div class="w50"><ul>'; 
+				}
+				var details = zrow[i].getAttribute('ows_URLwMenu');
+				var arr = details.split(',');
+				myHTMLOutput += '<li><a href="'+arr[0]+'">';
+				myHTMLOutput += arr[1]+'</a></li>';
+				if (i == col2) {
+					myHTMLOutput += '</ul></div><div class="w50"><ul>'; 
+				}	
+			}
+			
+		myHTMLOutput += '</ul></div></div>';
+
+	// Update the DIV called Content Area with the HTML string
+		$("#ContentArea").append(myHTMLOutput);
+	});
+	
+});
+</script>
